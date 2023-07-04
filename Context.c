@@ -350,7 +350,9 @@ void checkContactWithAABBRectangle(Context* context, int particle_id){
   //pc is found through previous functions.
   //nc is calculated with pc and next_pos.
   for (int i = 0; i < context -> num_AABBrectangles; ++i){
-    if (context -> particles[particle_id].next_pos.y < -4.0){
+    //Unfruitful attempt of optimisation by only checking for contact when the particle is in the bottom part of the board and near the rectangle.
+    if (context -> particles[particle_id].next_pos.y < -4.0 && 
+    norm(substract(context -> particles[particle_id].next_pos, getAABBRectangleCenter(context->AABBrectangles[i]))) < 5.0){
       Vec2 p = ClosestPointAABBRectangle(context->AABBrectangles[i], context->particles[particle_id].next_pos);
       float sdf = norm(substract(context->particles[particle_id].next_pos, p)) - context-> particles[particle_id].radius;
       if (sdf < 0){
@@ -384,6 +386,7 @@ void checkContactWithSphere(Context* context, int particle_id)
 //Used equations in instructions.
 {
   for (int i = 0; i < context -> num_ground_sphere; ++i){
+    //Unfruitful attempt of optimisation by only checking for contact for particles near the sphere.
     if (norm(substract(context->particles[particle_id].next_pos, context->ground_spheres[i].center)) < 1.5){
       float sdf = norm(substract(context -> particles[particle_id].next_pos, context -> ground_spheres[i].center)) - (context -> ground_spheres[i].radius + context -> particles[particle_id].radius);
       if (sdf < 0){
