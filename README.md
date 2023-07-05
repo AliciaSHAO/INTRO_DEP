@@ -8,6 +8,6 @@
   - Collisions inter-particule
 
 #Planche de Galton pas optimisée
- - Collisions avec Aligned Axis Bounding Boxes.
+ - Collisions avec Axis Aligned Bounding Boxes.
  - Collisions avec Oriented Bounding Boxes.
  - Mise en place de la planche de Galton.
